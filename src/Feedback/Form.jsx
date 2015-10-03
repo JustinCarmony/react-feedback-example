@@ -1,7 +1,16 @@
 var React = require('react');
 
+
 var Form = React.createClass({
+    propTypes: {
+        onFeedbackInput: React.PropTypes.func.isRequired
+    },
+
     render: function(){
+        var buttonDisabled = true;
+        if(this.props.feedbackLength > 0){
+            buttonDisabled = false;
+        }
         return (
             <form>
                 <div className="form-group">
@@ -10,10 +19,10 @@ var Form = React.createClass({
                 </div>
                 <div className="form-group">
                     <label className="control-label">Feedback</label>
-                    <textarea className="form-control" rows="6"></textarea>
-                    <div className="" style={{paddingTop: "10px"}}><strong>57</strong> of 500 characters</div>
+                    <textarea className="form-control" rows="6" onChange={this.props.onFeedbackInput}></textarea>
+                    <div className="" style={{paddingTop: "10px"}}><strong>{this.props.feedbackLength}</strong> of 500 characters</div>
                 </div>
-                <button type="submit" className="btn btn-default pull-right" disabled="true">Submit</button>
+                <button type="submit" className="btn btn-default pull-right" disabled={buttonDisabled}>Submit</button>
             </form>
         );
     }
